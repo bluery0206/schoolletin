@@ -1,10 +1,8 @@
-<form method="POST" class="uk-form-horizontal" action="login.php">
-    <legend class="uk-legend">Login</legend>
-
-    <?php if (isset($error)): ?>
+<form method="POST" class="uk-form-horizontal" action="<?= route("controllers/login") ?>">
+    <?php if (isset($_GET["error"])): ?>
         <div class="uk-alert-danger" uk-alert>
             <a href class="uk-alert-close" uk-close></a>
-            <?= $error ?>
+            <?= $_GET["error"] ?>
         </div>
     <?php endif ?>
 

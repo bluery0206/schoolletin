@@ -1,19 +1,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" href="<?= asset("css/uikit/uikit.min.css")?>" />
-<script src="<?= asset("js/uikit/uikit-icons.min.js") ?>"></script>
-<script src="<?= asset("js/uikit/uikit.min.js")?>"></script>
-
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/css/uikit.min.css" /> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/js/uikit.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/js/uikit-icons.min.js"></script> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/css/uikit.min.css" /> 
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/js/uikit-icons.min.js"></script>
     
 <link rel="stylesheet" href="<?= asset("css/custom/variables.css") ?>" />
 <link rel="stylesheet" href="<?= asset("css/custom/calendar.css") ?>"/>
 
 <title>
-    JDB
+    Iskulletin
     <?php if (isset($page_title)) :?>
         | <?= $page_title ?>
     <?php endif?>
