@@ -127,10 +127,10 @@ function is_authorized($user = null) {
 }
 
 
-function logger($category_id, $category, $description) {
-    $sql    = "INSERT INTO logs (category_id, category, description) 
+function logger($category_id, $category, $action) {
+    $sql    = "INSERT INTO logs (category_id, category, action) 
                 VALUES (?, ?, ?);";
-    $values = [$category_id, $category, $description];
+    $values = [$category_id, $category, $action];
     execute($sql, $values);
 }
 

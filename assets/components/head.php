@@ -7,9 +7,6 @@
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.25.1/dist/js/uikit-icons.min.js"></script>
 
-<link rel="stylesheet" href="<?= asset("css/custom/variables.css") ?>" />
-<link rel="stylesheet" href="<?= asset("css/custom/calendar.css") ?>"/>
-
 <title>
     Iskulletin
     <?php if (isset($page_title)) :?>
