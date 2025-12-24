@@ -48,83 +48,82 @@ include_once "../../bootstrap.php";
                 $categories = execute($sql)->fetchAll();
 
             ?>
-            <?php if ($categories) : ?>
-                <div class="uk-overflow-auto ">
-                    <div class="uk-flex uk-flex-between uk-flex-middle">
-                        <h2>Categories</h2>
-                        <?php if (is_authorized()) : ?>
-                            <a class="uk-button uk-button-primary" href="#modal-category-add" uk-toggle>
-                                <div>Add New</div>
-                            </a>
-                            <div id="modal-category-add" class="uk-modal" uk-modal>
-                                <div class="uk-modal-dialog">
-                                    <button class="uk-modal-close-default" type="button" uk-close=""></button>
-                                    <div class="uk-modal-header">
-                                        <h2 class="uk-modal-title">Add New Category</h2>
-                                    </div>
-                                    <div class="uk-modal-body">
-                                        <?php 
-                                        
-                                            $action = route("controllers/category/add");
-                                            include asset("components/form/category.php");
-                                        ?>
-                                    </div>
+            <div>
+                <div class="uk-flex uk-flex-between uk-flex-middle">
+                    <h2>Categories</h2>
+                    <?php if (is_authorized()) : ?>
+                        <a class="uk-button uk-button-primary" href="#modal-category-add" uk-toggle>
+                            <div>Add New</div>
+                        </a>
+                        <div id="modal-category-add" class="uk-modal" uk-modal>
+                            <div class="uk-modal-dialog">
+                                <button class="uk-modal-close-default" type="button" uk-close=""></button>
+                                <div class="uk-modal-header">
+                                    <h2 class="uk-modal-title">Add New Category</h2>
+                                </div>
+                                <div class="uk-modal-body">
+                                    <?php 
+                                    
+                                        $action = route("controllers/category/add");
+                                        include asset("components/form/category.php");
+                                    ?>
                                 </div>
                             </div>
-                        <?php endif ?>
-                    </div>
-                    <table class="uk-table uk-table-divider uk-table-striped uk-table-hover uk-table-small">
-                        <thead>
-                            <tr>
-                                <th class="uk-table-shrink">Name</th>
-                                <th class="uk-table-shrink">Description</th>
-                                <th class="uk-table-shrink">Updated</th>
-                                <th class="uk-table-shrink">Created</th>
-                                <th class="uk-table-shrink uk-text-right uk-text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($categories as $category) : ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+                <?php if ($categories) : ?>
+                    <div class="uk-overflow-auto">
+                        <table class="uk-table uk-table-divider uk-table-striped uk-table-hover uk-table-small">
+                            <thead>
                                 <tr>
-                                    <td class="uk-text-nowrap"><?= $category->name ?></td>
-                                    <td class="uk-flex uk-flex-center" ?><?= $category->description ?></td>
-                                    <td class="uk-text-nowrap"><?= date("M d, Y", strtotime($category->date_updated)) ?></td>
-                                    <td class="uk-text-nowrap"><?= date("M d, Y", strtotime($category->date_created)) ?></td>
-                                    <td class="uk-button-group uk-flex uk-flex-right">
-                                        <a class="uk-button uk-button-small uk-flex uk-flex-middle" href="#modal-container-<?= $category->id ?>" uk-toggle>
-                                            <span class="uk-text-small"uk-icon="file-edit"></span>
-                                            <div>Edit</div>
-                                        </a>
-                                        <div id="modal-container-<?= $category->id ?>" class="uk-modal-container" uk-modal>
-                                            <div class="uk-modal-dialog">
-                                                <button class="uk-modal-close-default" type="button" uk-close=""></button>
-                                                <div class="uk-modal-header">
-                                                    <h2 class="uk-modal-title">Set category on <?= $date ?></h2>
-                                                </div>
-                                                <div class="uk-modal-body">
-                                                    <?php 
-
-                                                        $action = "category_edit.php?id=$category->id";
-                                                    
-                                                    ?>
-                                                    <?php include "assets/components/form/category.php"; ?>
+                                    <th class="uk-table-shrink">Name</th>
+                                    <th>Description</th>
+                                    <th class="uk-table-shrink">Updated</th>
+                                    <th class="uk-table-shrink">Created</th>
+                                    <th class="uk-table-shrink uk-text-right uk-text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($categories as $category) : ?>
+                                    <tr>
+                                        <td class="uk-text-nowrap"><?= $category->name ?></td>
+                                        <td class="uk-flex" ?><?= $category->description ?></td>
+                                        <td class="uk-text-nowrap"><?= date("M d, Y", strtotime($category->date_updated)) ?></td>
+                                        <td class="uk-text-nowrap"><?= date("M d, Y", strtotime($category->date_created)) ?></td>
+                                        <td class="uk-button-group uk-flex uk-flex-right">
+                                            <a class="uk-button uk-margin-remove uk-padding-remove uk-button-small uk-flex uk-flex-middle" href="#modal-container-<?= $category->id ?>" uk-toggle>
+                                                <span class="uk-text-small"uk-icon="file-edit"></span>
+                                            </a>
+                                            <div id="modal-container-<?= $category->id ?>" class="uk-modal" uk-modal>
+                                                <div class="uk-modal-dialog">
+                                                    <button class="uk-modal-close-default" type="button" uk-close=""></button>
+                                                    <div class="uk-modal-header">
+                                                        <h2 class="uk-modal-title">Edit catergory</h2>
+                                                    </div>
+                                                    <div class="uk-modal-body">
+                                                        <?php 
+                                                            $action = route("controllers/category/edit");
+                                                            $next = "category/index";
+                                                            include asset("components/form/category.php"); 
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <a class="uk-button uk-button-danger uk-button-small uk-flex uk-flex-middle" 
-                                            href="category_delete.php?id=<?= $category->id ?>">
-                                            <span uk-icon="trash"></span>
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php else: ?>
-                <h1 class="uk-text-center">No cate$categories yet</h1>
-            <?php endif ?>
+                                            <a class="uk-button uk-margin-left uk-padding-remove uk-text-danger uk-button-small uk-flex uk-flex-middle" 
+                                                href="<?= route("controllers/category/delete") ?>?id=<?= $category->id ?>">
+                                                <span uk-icon="trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <h1 class="uk-text-center">No Categories yet</h1>
+                <?php endif ?>
+            </div>
         </div>
     </div>
 

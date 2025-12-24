@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2025 at 02:17 AM
+-- Generation Time: Dec 24, 2025 at 07:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `date_created`, `date_updated`) VALUES
-(1, 'uncategorized', 'Posts without a category', '2025-12-24 09:16:29', '2025-12-24 09:16:29');
+(1, 'uncategorized', 'Posts without a category', '2025-12-24 14:56:20', '2025-12-24 14:56:20');
 
 -- --------------------------------------------------------
 
