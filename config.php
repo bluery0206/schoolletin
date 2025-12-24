@@ -31,3 +31,6 @@ const URL_ASSET = URL_ROOT . "/assets";
 DEFAULTS CONFIG
 ============= */
 const UPLOADS_DIR = DIR_ASSET . "/uploads";
+
+$next = $_GET["next"] ?? "home";
+$previous = $_GET["next"] ?? "home";

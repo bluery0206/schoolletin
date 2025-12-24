@@ -133,3 +133,17 @@ function logger($category_id, $category, $description) {
     $values = [$category_id, $category, $description];
     execute($sql, $values);
 }
+
+
+function current_url() {
+    $current_url = array_reverse(explode("public/", $_SERVER['REQUEST_URI']))[0];
+    // echo "current_url: "; var_dump($current_url); echo "<br>";
+    
+    $current_url = explode(".php", $current_url)[0];
+    // echo "current_url: "; var_dump($current_url); echo "<br>";
+
+    // $current_url = base64_encode($current_url);
+    // echo "current_url: "; var_dump($current_url); echo "<br>";
+
+    return $current_url;
+}

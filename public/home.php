@@ -40,86 +40,198 @@ include_once "../bootstrap.php";
     </nav> -->
 
     <div>
-        <div class="uk-container uk-container-small uk-section-xsmall" uk-height-viewport="min: 100; offset-top: true">
+        <div class="uk-container uk-container-xsmall uk-section-xsmall" uk-height-viewport="min: 100; offset-top: true">
+            
+            <div class="uk-flex uk-flex-between uk-flex-middle">
+                <h2>Posts</h2>
+                <?php if (is_authorized()) : ?>
+                    <a class="uk-button uk-button-primary" href="#modal-post-add" uk-toggle>
+                        <div>Add New</div>
+                    </a>
+                    <div id="modal-post-add" class="uk-modal" uk-modal>
+                        <div class="uk-modal-dialog">
+                            <button class="uk-modal-close-default" type="button" uk-close=""></button>
+                            <div class="uk-modal-header">
+                                <h2 class="uk-modal-title">Add New Post</h2>
+                            </div>
+                            <div class="uk-modal-body">
+                                <?php 
+                                
+                                    $action = route("controllers/post/add");
+                                    include asset("components/form/post.php");
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif ?>
+            </div>
+
             <!-- uk-accordion-default => have one max accordion open at the same time -->
             <ul class="uk-accordion-default" uk-accordion="
                 collapsible: true;
                 multiple: true">
-                <li class="uk-open">
-                <!-- <li> -->
+                <!-- <li class="uk-open"> -->
+                <?php 
+
+                    $sql = "SELECT *
+                            FROM posts
+                            WHERE 
+                                is_pinned = 1
+                            LIMIT 10
+                            OFFSET 0";
+
+                    $pinned_posts = execute($sql)->fetchAll();
+
+                ?>
+                <li <?= $pinned_posts ? "class=\"uk-open\"" : "" ; ?>>
                     <a class="uk-accordion-title uk-text-muted" href>
                         <span uk-icon="warning"></span>
                         Pinned Posts
                         <span uk-accordion-icon></span>
                     </a>
                     <div class="uk-accordion-content">
-                        <?php for ($i = 0; $i < 4; $i++) :?>
-                            <article class="uk-article">
-                                <!-- The title -->
-                                <h1 class="uk-article-title">
-                                    <a class="uk-link-heading" href="">
-                                        Jhonlie's Solid Wire Opening!
-                                    </a>
-                                </h1>
-                                <!-- The authors -->
-                                <p class="uk-article-meta">
-                                    Written by <a href="#">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a>
-                                </p>
-                                <!-- A bit more emphasize -->
-                                <p class="uk-text-lead">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                </p>
-                                <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                    <div>
-                                        <a class="uk-button uk-button-text" href="#">Read more</a>
+                        <?php if ($pinned_posts) : ?>
+                                <?php foreach ($pinned_posts as $post) : ?>
+                                    <div class="uk-card uk-card-default uk-margin">
+                                        <div class="uk-card-body">
+                                            <div class="uk-flex uk-flex-between">
+                                                <h3 class="uk-card-title uk-margin-remove-bottom">
+                                                    <?= $post->title ?>
+                                                </h3>
+                                                <div class="uk-flex uk-flex-middle">
+                                                    <?php if (is_authorized()) : ?>
+                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                            <?php 
+
+                                                                $pin_action = "add";
+                                                                $pin_icon = "keep";
+
+                                                                if ($post->is_pinned) {
+                                                                    $pin_action = "remove";
+                                                                    $pin_icon = "keep_off";
+                                                                }
+
+                                                            ?>
+                                                            href="<?= route("controllers/post/pinned/$pin_action") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
+                                                            <span class="material-symbols-outlined uk-margin-remove"><?= $pin_icon ?></span>
+                                                        </a>
+                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                            href="#modal-pinned-post-edit-<?= $post->id?>" uk-toggle>
+                                                            <span class="material-symbols-outlined uk-margin-remove">edit</span>
+                                                        </a>
+                                                        <div id="modal-pinned-post-edit-<?= $post->id?>" class="uk-modal" uk-modal>
+                                                            <div class="uk-modal-dialog">
+                                                                <button class="uk-modal-close-default" type="button" uk-close=""></button>
+                                                                <div class="uk-modal-header">
+                                                                    <h2 class="uk-modal-title">Add New Post</h2>
+                                                                </div>
+                                                                <div class="uk-modal-body">
+                                                                    <?php 
+                                                                    
+                                                                        $action = route("controllers/post/edit");
+                                                                        include asset("components/form/post.php");
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                            href="<?= route("controllers/post/delete") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
+                                                            <span class="material-symbols-outlined uk-margin-remove">delete</span>
+                                                        </a>
+                                                    <?php endif ?>
+                                                </div>
+                                            </div>
+                                            <p class="uk-text-meta uk-margin-remove-top">
+                                                <?= date("F d, Y", strtotime($post->date_posted)) ?>
+                                            </p>
+                                            <p><?= $post->caption ?></p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a class="uk-button uk-button-text" href="#">5 Comments</a>
-                                    </div>
-                                </div>
-                            </article>
-                        <?php endfor ?>
+                                <?php endforeach ?>
+                        <?php else: ?>
+                            <h1 class="uk-text-center">No pinned posts yet</h1>
+                        <?php endif ?>
                     </div>
                 </li>
-                <li>
+
+                <?php 
+
+                    $sql = "SELECT *
+                            FROM posts
+                            LIMIT 20
+                            OFFSET 0";
+
+                    $posts = execute($sql)->fetchAll();
+
+                ?>
+                <li <?= isset($posts) ? "class=\"uk-open\"" : "" ; ?>>
                     <a class="uk-accordion-title uk-text-muted" href>
                         <span uk-icon="table"></span>
                         Posts
                         <span uk-accordion-icon></span>
                     </a>
                     <div class="uk-accordion-content">
-                        <?php for ($i = 0; $i < 4; $i++) :?>
-                            <article class="uk-article">
-                                <!-- The title -->
-                                <h1 class="uk-article-title">
-                                    <a class="uk-link-heading" href="">
-                                        Jhonlie's Solid Wire Opening!
-                                    </a>
-                                </h1>
-                                <!-- The authors -->
-                                <p class="uk-article-meta">
-                                    Written by <a href="#">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a>
-                                </p>
-                                <!-- A bit more emphasize -->
-                                <p class="uk-text-lead">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                </p>
-                                <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                    <div>
-                                        <a class="uk-button uk-button-text" href="#">Read more</a>
+                        <?php if ($posts) : ?>
+                                <?php foreach ($posts as $post) : ?>
+                                    <div class="uk-card uk-card-default uk-margin">
+                                        <div class="uk-card-body">
+                                            <div class="uk-flex uk-flex-between">
+                                                <h3 class="uk-card-title uk-margin-remove-bottom">
+                                                    <?= $post->title ?>
+                                                </h3>
+                                                <div class="uk-flex uk-flex-middle">
+                                                    <?php if (is_authorized()) : ?>
+                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                            <?php 
+
+                                                                $pin_action = "add";
+                                                                $pin_icon = "keep";
+
+                                                                if ($post->is_pinned) {
+                                                                    $pin_action = "remove";
+                                                                    $pin_icon = "keep_off";
+                                                                }
+
+                                                            ?>
+                                                            href="<?= route("controllers/post/pinned/$pin_action") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
+                                                            <span class="material-symbols-outlined uk-margin-remove"><?= $pin_icon ?></span>
+                                                        </a>
+                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                            href="#modal-post-edit-<?= $post->id?>" uk-toggle>
+                                                            <span class="material-symbols-outlined uk-margin-remove">edit</span>
+                                                        </a>
+                                                        <div id="modal-post-edit-<?= $post->id?>" class="uk-modal" uk-modal>
+                                                            <div class="uk-modal-dialog">
+                                                                <button class="uk-modal-close-default" type="button" uk-close=""></button>
+                                                                <div class="uk-modal-header">
+                                                                    <h2 class="uk-modal-title">Add New Post</h2>
+                                                                </div>
+                                                                <div class="uk-modal-body">
+                                                                    <?php 
+                                                                    
+                                                                        $action = route("controllers/post/edit");
+                                                                        include asset("components/form/post.php");
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                            href="<?= route("controllers/post/delete") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
+                                                            <span class="material-symbols-outlined uk-margin-remove">delete</span>
+                                                        </a>
+                                                    <?php endif ?>
+                                                </div>
+                                            </div>
+                                            <p class="uk-text-meta uk-margin-remove-top">
+                                                <?= date("F d, Y", strtotime($post->date_posted)) ?>
+                                            </p>
+                                            <p><?= $post->caption ?></p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a class="uk-button uk-button-text" href="#">5 Comments</a>
-                                    </div>
-                                </div>
-                            </article>
-                        <?php endfor ?>
+                                <?php endforeach ?>
+                        <?php else: ?>
+                            <h1 class="uk-text-center">No posts yet</h1>
+                        <?php endif ?>
                     </div>
                 </li>
             </ul>

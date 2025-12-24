@@ -2,7 +2,7 @@
     <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container;">
 
         <nav class="uk-navbar-container">
-            <div class="uk-container uk-container-small">
+            <div class="uk-container uk-container-xsmall">
                 <div uk-navbar>
                     <div class="uk-navbar-left">
                         <!-- Logo -->
@@ -65,14 +65,12 @@
                                     </a>
                                     <div class="uk-navbar-dropdown">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li <?= is_view_active("post/index") ? "class='uk-active'" : "" ?>><a href="<?= route("post/index") ?>">Posts</a></li>
-                                            <li <?= is_view_active("post/pinned/index") ? "class='uk-active'" : "" ?>><a href="<?= route("post/pinned/index") ?>">Pinned Posts</a></li>
                                             <li <?= is_view_active("category/index") ? "class='uk-active'" : "" ?>><a href="<?= route("category/index") ?>">Categories</a></li>
                                         </ul>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="logout.php">
+                                    <a href="<?= route("controllers/logout") ?>">
                                         <span uk-icon="sign-in"></span>
                                         Logout
                                     </a>
