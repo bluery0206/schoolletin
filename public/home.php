@@ -101,24 +101,25 @@ include_once "../bootstrap.php";
                                                 </h3>
                                                 <div class="uk-flex uk-flex-middle">
                                                     <?php if (is_authorized()) : ?>
-                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                        <a class="uk-button uk-padding-remove uk-margin-left" 
                                                             <?php 
 
                                                                 $pin_action = "add";
-                                                                $pin_icon = "keep";
+                                                                $text = "Pin";
 
                                                                 if ($post->is_pinned) {
                                                                     $pin_action = "remove";
-                                                                    $pin_icon = "keep_off";
+                                                                    $text = "Unpin";
                                                                 }
 
                                                             ?>
                                                             href="<?= route("controllers/post/pinned/$pin_action") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
-                                                            <span class="material-symbols-outlined uk-margin-remove"><?= $pin_icon ?></span>
+                                                            <?= $text ?>
                                                         </a>
-                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                        <a class="uk-button uk-padding-remove uk-margin-left" 
                                                             href="#modal-pinned-post-edit-<?= $post->id?>" uk-toggle>
-                                                            <span class="material-symbols-outlined uk-margin-remove">edit</span>
+                                                            Edit
+                                                            <!-- <span class="material-symbols-outlined uk-margin-remove">edit</span> -->
                                                         </a>
                                                         <div id="modal-pinned-post-edit-<?= $post->id?>" class="uk-modal" uk-modal>
                                                             <div class="uk-modal-dialog">
@@ -135,9 +136,10 @@ include_once "../bootstrap.php";
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                        <a class="uk-button uk-padding-remove uk-margin-left uk-text-danger" 
                                                             href="<?= route("controllers/post/delete") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
-                                                            <span class="material-symbols-outlined uk-margin-remove">delete</span>
+                                                            Delete
+                                                            <!-- <span class="material-symbols-outlined uk-margin-remove">delete</span> -->
                                                         </a>
                                                     <?php endif ?>
                                                 </div>
@@ -182,24 +184,25 @@ include_once "../bootstrap.php";
                                                 </h3>
                                                 <div class="uk-flex uk-flex-middle">
                                                     <?php if (is_authorized()) : ?>
-                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                        <a class="uk-button uk-padding-remove uk-margin-left" 
                                                             <?php 
 
                                                                 $pin_action = "add";
-                                                                $pin_icon = "keep";
+                                                                $text = "Pin";
 
                                                                 if ($post->is_pinned) {
                                                                     $pin_action = "remove";
-                                                                    $pin_icon = "keep_off";
+                                                                    $text = "Unpin";
                                                                 }
 
                                                             ?>
                                                             href="<?= route("controllers/post/pinned/$pin_action") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
-                                                            <span class="material-symbols-outlined uk-margin-remove"><?= $pin_icon ?></span>
+                                                            <?= $text ?>
                                                         </a>
-                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                        <a class="uk-button uk-padding-remove uk-margin-left" 
                                                             href="#modal-post-edit-<?= $post->id?>" uk-toggle>
-                                                            <span class="material-symbols-outlined uk-margin-remove">edit</span>
+                                                            Edit
+                                                            <!-- <span class="material-symbols-outlined uk-margin-remove">edit</span> -->
                                                         </a>
                                                         <div id="modal-post-edit-<?= $post->id?>" class="uk-modal" uk-modal>
                                                             <div class="uk-modal-dialog">
@@ -216,9 +219,10 @@ include_once "../bootstrap.php";
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a class="uk-button uk-padding-remove uk-margin-remove uk-flex uk-flex-middle" 
+                                                        <a class="uk-button uk-padding-remove uk-margin-left uk-text-danger" 
                                                             href="<?= route("controllers/post/delete") ?>?next=<?= current_url() ?>&id=<?= $post->id ?>">
-                                                            <span class="material-symbols-outlined uk-margin-remove">delete</span>
+                                                            Delete
+                                                            <!-- <span class="material-symbols-outlined uk-margin-remove">delete</span> -->
                                                         </a>
                                                     <?php endif ?>
                                                 </div>

@@ -92,8 +92,9 @@ include_once "../../bootstrap.php";
                                         <td class="uk-text-nowrap"><?= date("M d, Y", strtotime($category->date_updated)) ?></td>
                                         <td class="uk-text-nowrap"><?= date("M d, Y", strtotime($category->date_created)) ?></td>
                                         <td class="uk-button-group uk-flex uk-flex-right">
-                                            <a class="uk-button uk-margin-remove uk-padding-remove uk-button-small uk-flex uk-flex-middle" href="#modal-container-<?= $category->id ?>" uk-toggle>
-                                                <span class="uk-text-small"uk-icon="file-edit"></span>
+                                            <a class="uk-button uk-padding-remove" href="#modal-container-<?= $category->id ?>" uk-toggle>
+                                                Edit
+                                                <!-- <span class="uk-text-small"uk-icon="file-edit"></span> -->
                                             </a>
                                             <div id="modal-container-<?= $category->id ?>" class="uk-modal" uk-modal>
                                                 <div class="uk-modal-dialog">
@@ -110,9 +111,10 @@ include_once "../../bootstrap.php";
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a class="uk-button uk-margin-left uk-padding-remove uk-text-danger uk-button-small uk-flex uk-flex-middle" 
+                                            <a class="uk-button uk-padding-remove uk-margin-left uk-text-danger" 
                                                 href="<?= route("controllers/category/delete") ?>?id=<?= $category->id ?>">
-                                                <span uk-icon="trash"></span>
+                                                <!-- <span uk-icon="trash"></span> -->
+                                                Delete
                                             </a>
                                         </td>
                                     </tr>
